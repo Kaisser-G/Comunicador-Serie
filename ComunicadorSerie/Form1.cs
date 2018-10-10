@@ -36,6 +36,26 @@ namespace ComunicadorSerie
             PuertoSerie.ReceivedBytesThreshold = 1;
 
             PuertoSerie.DataReceived += new SerialDataReceivedEventHandler(PuertoSerie_RecibirDatos);
+
+            //copiado de internet
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.label2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.label3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.label4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.label5.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.richTextBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.textBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.button2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.button1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.lblEstado.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.btnConexion.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.lblCOM1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.lblCOM2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.lblCOM3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.lblCOM4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.lblCOM5.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -168,6 +188,32 @@ namespace ComunicadorSerie
                 MessageBox.Show(ex.Message.ToString(), "Error");
             }
         }
-    
+
+        #region CopiadoDeInternet
+        const int WM_SYSCOMMAND = 0x112;
+        const int MOUSE_MOVE = 0xF012;
+
+        // Declaraciones del API 
+        [System.Runtime.InteropServices.DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        // 
+        [System.Runtime.InteropServices.DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        // 
+        // función privada usada para mover el formulario actual 
+
+        private void moverForm()
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SYSCOMMAND, MOUSE_MOVE, 0);
+        }
+
+
+        private void Form1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            moverForm();
+        }
+        #endregion
+
     }
 }
